@@ -51,7 +51,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({
   position = "bottom-right",
   openByDefault = false,
 }) => {
-  const [history, setHistory] = useState<Message[]>([]);
+  const [history, setHistory] = useState<Message[]>(initialMessages);
 
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(openByDefault);
