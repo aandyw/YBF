@@ -51,7 +51,64 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({
   position = "bottom-right",
   openByDefault = false,
 }) => {
-  return <></>;
+  const [history, setHistory] = useState<Message[]>([]);
+
+  const [input, setInput] = useState("");
+  const [open, setOpen] = useState(openByDefault);
+
+  const handleRequest = () => {
+    if (input.trim() === "") return; // Empty response
+
+    const newMessage: Message = { role: "user", content: input };
+    setHistory((prevHistory) => [...prevHistory, newMessage]);
+
+    // Simulate a bot reply after one second.
+    setTimeout(() => {
+      const botResponse: Message = { role: "assistant", content: "Hey :)" };
+      setHistory((prevHistory) => [...prevHistory, botResponse]);
+    }, 1000);
+
+    // Clear the input box to type new message
+    setInput("");
+  };
+
+  return (
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader>
+        <h2 className="text-lg font-bold">Chat with Your Biggest Fan</h2>
+      </CardHeader>
+      <CardContent className="h-64 overflow-y-auto">
+        {history.map((msg, idx) => (
+          <div
+            key={idx}
+            className={`mb-2 ${
+              msg.role === "user" ? "text-right" : "text-left"
+            }`}
+          >
+            <span
+              className={`inline-block px-3 py-2 rounded-lg ${
+                msg.role === "user"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-300 text-black"
+              }`}
+            >
+              {msg.content}
+            </span>
+          </div>
+        ))}
+      </CardContent>
+      <CardFooter className="flex space-x-2">
+        <Input
+          type="text"
+          placeholder="Chat..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="flex-1"
+        />
+        <Button onClick={handleRequest}>Send</Button>
+      </CardFooter>
+    </Card>
+  );
 };
 
 export default ChatWidget;
