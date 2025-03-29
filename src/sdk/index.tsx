@@ -10,13 +10,13 @@ export interface ChatWidgetSDKConfig extends ChatWidgetProps {
 }
 
 class ChatWidgetSDK {
-  private options: ChatWidgetSDKConfig;
+  private config: ChatWidgetSDKConfig;
   private root: any = null;
   private container: HTMLElement | null = null;
 
-  constructor(options: ChatWidgetSDKConfig = {}) {
+  constructor(config: ChatWidgetSDKConfig = {}) {
     // Default options
-    this.options = {
+    this.config = {
       elementId: "ybf-container",
       chatEndpoint: "/api/chat",
       initialMessages: [],
@@ -28,7 +28,7 @@ class ChatWidgetSDK {
       position: "bottom-right",
       openByDefault: false,
       systemPrompt: "You are a helpful AI assistant.",
-      ...options,
+      ...config,
     };
   }
 
@@ -44,19 +44,19 @@ class ChatWidgetSDK {
 
     // Create container if it doesn't exist
     this.container = document.getElementById(
-      this.options.elementId || "ybf-chatbot-container",
+      this.config.elementId || "ybf-chatbot-container",
     );
 
     if (!this.container) {
       this.container = document.createElement("div");
-      this.container.id = this.options.elementId || "ybf-chatbot-container";
+      this.container.id = this.config.elementId || "ybf-chatbot-container";
       document.body.appendChild(this.container);
     }
 
     // Render the chat widget
     try {
       this.root = createRoot(this.container);
-      this.root.render(<ChatWidget {...this.options} />);
+      this.root.render(<ChatWidget {...this.config} />);
       console.log("YBF Chatbot initialized successfully");
     } catch (error) {
       console.error("Failed to initialize YBF Chatbot:", error);
@@ -83,7 +83,7 @@ class ChatWidgetSDK {
     if (
       this.container &&
       this.container.parentNode &&
-      this.options.elementId === "ybf-chatbot-container"
+      this.config.elementId === "ybf-chatbot-container"
     ) {
       this.container.parentNode.removeChild(this.container);
       this.container = null;
