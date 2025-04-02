@@ -2,32 +2,33 @@
 
 import React from "react";
 import { createRoot } from "react-dom/client";
-import ChatWidget, { ChatWidgetProps } from "../components/chat-widget";
-
-export interface ChatWidgetSDKConfig extends ChatWidgetProps {
-  /** ID of the container element where the chatbot will be rendered */
-  elementId?: string;
-}
+import ChatWidget from "@/components/chat-widget";
+import { ChatService } from "@/lib/chat-service";
+import { CoreMessage } from "ai";
+import { ChatWidgetSDKConfig } from "@/lib/config";
 
 class ChatWidgetSDK {
+  private chatService: ChatService;
   private config: ChatWidgetSDKConfig;
   private root: any = null;
   private container: HTMLElement | null = null;
+  private static containerId = "ybf-container";
 
   constructor(config: ChatWidgetSDKConfig = {}) {
+    // Create chat service
+    const systemPrompt = config.systemPrompt || "";
+    this.chatService = new ChatService(systemPrompt);
+
     // Default options
     this.config = {
-      elementId: "ybf-container",
-      chatEndpoint: "/api/chat",
-      initialMessages: [],
+      title: "Chat", // Display Properties
       placeholderText: "Ask me anything...",
-      numHistoryMessages: 3,
-      title: "YBF",
-      height: "500px",
-      width: "350px",
-      position: "bottom-right",
+      height: "520px",
+      width: "380px",
+      position: "bottom-right", // Behavioral Properties
       openByDefault: false,
-      systemPrompt: "You are a helpful AI assistant.",
+      initialMessages: [], // Messaging Properties
+      numHistoryMessages: 3,
       ...config,
     };
   }
@@ -36,30 +37,30 @@ class ChatWidgetSDK {
    * Initialize the chatbot and render it to the DOM
    * @returns This ChatWidgetSDK instance for chaining
    */
-  public init(): ChatWidgetSDK {
+  public init(): ChatWidgetSDK | null {
     if (typeof window === "undefined") {
       console.warn("ChatWidgetSDK.init() called in a non-browser environment");
-      return this;
+      return null;
     }
 
-    // Create container if it doesn't exist
-    this.container = document.getElementById(
-      this.config.elementId || "ybf-chatbot-container",
-    );
+    this.container = document.getElementById(ChatWidgetSDK.containerId);
 
+    // Create container if it doesn't exist
     if (!this.container) {
       this.container = document.createElement("div");
-      this.container.id = this.config.elementId || "ybf-chatbot-container";
+      this.container.id = ChatWidgetSDK.containerId;
       document.body.appendChild(this.container);
     }
 
     // Render the chat widget
     try {
       this.root = createRoot(this.container);
-      this.root.render(<ChatWidget {...this.config} />);
-      console.log("YBF Chatbot initialized successfully");
+      this.root.render(
+        <ChatWidget {...this.config} chatService={this.chatService} />
+      );
+      console.log("YBF widget initialized successfully");
     } catch (error) {
-      console.error("Failed to initialize YBF Chatbot:", error);
+      console.error("Failed to initialize YBF widget:", error);
     }
 
     return this;
@@ -75,7 +76,7 @@ class ChatWidgetSDK {
         this.root.unmount();
         this.root = null;
       } catch (error) {
-        console.error("Failed to destroy YBF Chatbot:", error);
+        console.error("Failed to destroy YBF widget:", error);
       }
     }
 
@@ -83,7 +84,7 @@ class ChatWidgetSDK {
     if (
       this.container &&
       this.container.parentNode &&
-      this.config.elementId === "ybf-chatbot-container"
+      this.container.id === "ybf-container"
     ) {
       this.container.parentNode.removeChild(this.container);
       this.container = null;

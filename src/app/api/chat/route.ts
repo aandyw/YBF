@@ -15,7 +15,7 @@ export async function POST(req: Request) {
         error: "API key not configured",
         content: "The server is not properly configured with an API key.",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 
