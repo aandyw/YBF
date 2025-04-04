@@ -90,8 +90,10 @@ const ChatWidget: React.FC<
           }}
           className="flex flex-col overflow-hidden"
         >
-          <CardHeader className="flex justify-between items-center px-4 py-2 shrink-0">
-            <h2 className="text-lg font-medium text-gray-800">{title}</h2>
+          <CardHeader className="flex justify-between items-center px-3 shrink-0">
+            <h2 className="text-lg font-medium text-gray-800 m-auto">
+              {title}
+            </h2>
             <Button
               variant="ghost"
               size="sm"
@@ -102,7 +104,7 @@ const ChatWidget: React.FC<
             </Button>
           </CardHeader>
 
-          <CardContent className="flex-grow overflow-y-auto m-2 py-4 px-4 border border-gray-200 rounded-sm">
+          <CardContent className="flex-grow overflow-y-auto mr-3 ml-3 py-4 px-4 border border-gray-200 rounded-sm">
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -129,14 +131,13 @@ const ChatWidget: React.FC<
             ))}
           </CardContent>
 
-          <CardFooter className="flex space-x-2">
+          <CardFooter className="flex space-x-2 pr-3 pl-3">
             <Input
               type="text"
               placeholder={placeholderText}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
-                // Handle input + enter
                 if (e.key === "Enter") {
                   handleChatRequest();
                 }
