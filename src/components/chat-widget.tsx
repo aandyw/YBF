@@ -86,11 +86,12 @@ const ChatWidget: React.FC<
           style={{
             width: width,
             height: height,
+            fontFamily: "'Noto Serif JP', serif",
           }}
           className="flex flex-col overflow-hidden"
         >
           <CardHeader className="flex justify-between items-center px-4 py-2 shrink-0">
-            <h2 className="text-lg font-bold">{title}</h2>
+            <h2 className="text-lg font-medium text-gray-800">{title}</h2>
             <Button
               variant="ghost"
               size="sm"
@@ -112,11 +113,15 @@ const ChatWidget: React.FC<
                 }`}
               >
                 <div
-                  className={`max-w-[75%] break-words ${
+                  className={`max-w-[85%] break-words ${
                     msg.role === "user"
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-300 text-black"
-                  } px-3 py-2 rounded-lg`}
+                      ? "bg-amber-50 text-gray-800 border border-amber-200 rounded-br-none"
+                      : "bg-gray-100 text-gray-800 border border-gray-300 rounded-bl-none"
+                  } px-4 py-3 rounded-lg`}
+                  style={{
+                    fontSize: msg.role === "user" ? "0.95rem" : "1rem",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                  }}
                 >
                   {msg.content}
                 </div>
