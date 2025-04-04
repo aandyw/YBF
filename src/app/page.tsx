@@ -23,6 +23,9 @@ const DemoPage: React.FC = () => {
         "Ask me anything at all :O",
       ],
       systemPrompt: "",
+      height: "32.5rem",
+      width: "24rem",
+      openByDefault: true,
     });
     chatWidget.init();
   }, []);
@@ -30,7 +33,6 @@ const DemoPage: React.FC = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-8 bg-white">
       <div className="w-full max-w-5xl flex flex-col items-center justify-center flex-1 gap-8">
-        {/* Logo Section */}
         <div className="flex flex-col items-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900">
             Your Biggest Fan
@@ -38,7 +40,6 @@ const DemoPage: React.FC = () => {
           <p className="text-xl text-gray-600 mt-2">•ᴗ•</p>
         </div>
 
-        {/* Main Card */}
         <Card className="w-full max-w-md border border-gray-200 shadow-sm">
           <CardHeader className="pb-4">
             <h2 className="text-2xl font-semibold text-center text-gray-800">

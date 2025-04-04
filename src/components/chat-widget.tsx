@@ -19,7 +19,7 @@ const ChatWidget: React.FC<
   ChatWidgetSDKConfig & { chatService: ChatService }
 > = ({
   title = "Chat",
-  placeholderText = "Type your message...",
+  placeholderText = "Ask me anything...",
   height = "520px",
   width = "380px",
   position = "bottom-right",
@@ -53,15 +53,15 @@ const ChatWidget: React.FC<
   const getPositionStyles = () => {
     switch (position) {
       case "bottom-right":
-        return { bottom: "20px", right: "20px" };
+        return { bottom: "1.25rem", right: "1.25rem" };
       case "bottom-left":
-        return { bottom: "20px", left: "20px" };
+        return { bottom: "1.25rem", left: "1.25rem" };
       case "top-right":
-        return { top: "20px", right: "20px" };
+        return { top: "1.25rem", right: "1.25rem" };
       case "top-left":
-        return { top: "20px", left: "20px" };
+        return { top: "1.25rem", left: "1.25rem" };
       default:
-        return { bottom: "20px", right: "20px" };
+        return { bottom: "1.25rem", right: "1.25rem" };
     }
   };
 
@@ -82,39 +82,65 @@ const ChatWidget: React.FC<
           <MessageSquare className="h-6 w-6" />
         </Button>
       ) : (
-        <Card className="w-full max-w-md mx-auto">
-          <CardHeader>
+        <Card
+          style={{
+            width: width,
+            height: height,
+          }}
+          className="flex flex-col overflow-hidden"
+        >
+          <CardHeader className="flex justify-between items-center px-4 py-2 shrink-0">
             <h2 className="text-lg font-bold">{title}</h2>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setOpen(false)}
+              className="h-8 w-8 p-0"
+            >
+              <X className="h-4 w-4"></X>
+            </Button>
           </CardHeader>
-          <CardContent className="h-64 overflow-y-auto">
+
+          <CardContent className="flex-grow overflow-y-auto m-2 py-4 px-4 border border-gray-200 rounded-sm">
             {messages.map((msg, idx) => (
               <div
                 key={idx}
                 className={`mb-2 ${
-                  msg.role === "user" ? "text-right" : "text-left"
+                  msg.role === "user"
+                    ? "flex justify-end"
+                    : "flex justify-start"
                 }`}
               >
-                <span
-                  className={`inline-block px-3 py-2 rounded-lg ${
+                <div
+                  className={`max-w-[75%] break-words ${
                     msg.role === "user"
                       ? "bg-blue-500 text-white"
                       : "bg-gray-300 text-black"
-                  }`}
+                  } px-3 py-2 rounded-lg`}
                 >
                   {msg.content}
-                </span>
+                </div>
               </div>
             ))}
           </CardContent>
+
           <CardFooter className="flex space-x-2">
             <Input
               type="text"
               placeholder={placeholderText}
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                // Handle input + enter
+                if (e.key === "Enter") {
+                  handleChatRequest();
+                }
+              }}
               className="flex-1"
             />
-            <Button onClick={handleChatRequest}>Send</Button>
+            <Button onClick={handleChatRequest}>
+              <Send className="h-4 w-4" />
+            </Button>
           </CardFooter>
         </Card>
       )}

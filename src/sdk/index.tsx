@@ -12,14 +12,13 @@ class ChatWidgetSDK {
   private config: ChatWidgetSDKConfig;
   private root: any = null;
   private container: HTMLElement | null = null;
-  private static containerId = "ybf-container";
+  private static containerId = "ybf-widget";
 
   constructor(config: ChatWidgetSDKConfig = {}) {
     // Create chat service
     const systemPrompt = config.systemPrompt || "";
     this.chatService = new ChatService(systemPrompt);
 
-    // Default options
     this.config = {
       title: "Chat", // Display Properties
       placeholderText: "Ask me anything...",
@@ -84,7 +83,7 @@ class ChatWidgetSDK {
     if (
       this.container &&
       this.container.parentNode &&
-      this.container.id === "ybf-container"
+      this.container.id === "ybf-widget"
     ) {
       this.container.parentNode.removeChild(this.container);
       this.container = null;
