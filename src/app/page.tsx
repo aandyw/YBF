@@ -23,8 +23,8 @@ const DemoPage: React.FC = () => {
         "Ask me anything at all :O",
       ],
       systemPrompt: "",
-      height: "32.5rem",
-      width: "24rem",
+      height: "40rem",
+      width: "29.5rem",
       openByDefault: true,
     });
     chatWidget.init();

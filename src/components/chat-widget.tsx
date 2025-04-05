@@ -25,7 +25,7 @@ const ChatWidget: React.FC<
   position = "bottom-right",
   openByDefault = false,
   initialMessages = [],
-  numHistoryMessages = 3,
+  numHistoryMessages = 3, // TODO: use this to prevent limits in context and save money
   chatService,
 }) => {
   const [messages, setMessages] = useState<CoreMessage[]>(
@@ -35,6 +35,15 @@ const ChatWidget: React.FC<
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(openByDefault);
 
+  // Checks if the last message was not sent by the user.
+  const prevMessageNotUser = (prevMessages: CoreMessage[]) => {
+    return (
+      prevMessages.length > 0 &&
+      prevMessages[prevMessages.length - 1].role !== "user"
+    );
+  };
+
+  // Handle a chat request sent by user
   const handleChatRequest = async () => {
     if (input.trim() === "") return; // Empty response
 
@@ -42,12 +51,34 @@ const ChatWidget: React.FC<
     const newMessage: CoreUserMessage = { role: "user", content: input };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
 
-    // Get response
-    const response: CoreAssistantMessage = await chatService.chat(messages);
-    setMessages((prevMessages) => [...prevMessages, response]);
-
     // Clear the input box to type new message
     setInput("");
+
+    // Get response
+    const stream = (await chatService.chat(
+      [...messages, newMessage],
+      true
+    )) as ReadableStream<string>;
+    const reader = stream.getReader();
+
+    let streamedContent = "";
+
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        streamedContent += value; // Append streaming chunks
+        setMessages((prevMessages) => [
+          ...(prevMessageNotUser(prevMessages)
+            ? prevMessages.slice(0, -1)
+            : prevMessages),
+          { role: "assistant", content: streamedContent },
+        ]);
+      }
+    } catch (error) {
+      console.error("Error reading stream:", error);
+    }
   };
 
   const getPositionStyles = () => {

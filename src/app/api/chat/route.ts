@@ -6,14 +6,14 @@ import { streamText } from "ai";
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  // TODO: have a non-streaming option?
+  const { messages, stream } = await req.json();
 
-  // Check if API key is configured
   if (!process.env.OPENAI_API_KEY) {
     return NextResponse.json(
       {
         error: "API key not configured",
-        content: "The server is not properly configured with an API key.",
+        content: "API key not properly configured.",
       },
       { status: 500 }
     );
@@ -24,5 +24,5 @@ export async function POST(req: Request) {
     messages,
   });
 
-  return result.toDataStreamResponse();
+  return result.toTextStreamResponse();
 }
