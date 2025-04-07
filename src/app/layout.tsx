@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Your Biggest Fan",
-  description: "",
+  description:
+    "Your personal over-the-top stan to convince ANYONE that you deserve more than you do.",
 };
 
 export default function RootLayout({

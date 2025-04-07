@@ -16,16 +16,13 @@ const DemoPage: React.FC = () => {
 
   React.useEffect(() => {
     const chatWidget = new ChatWidgetSDK({
+      subjectName: "George",
       title: "Chat",
-      initialMessages: [
-        "Hey there",
-        "I'm here to glaze",
-        "Ask me anything at all :O",
-      ],
+      initialMessages: ["Hey there. I'm here to glaze."],
       systemPrompt: "",
       height: "40rem",
       width: "29.5rem",
-      openByDefault: true,
+      openByDefault: false,
     });
     chatWidget.init();
   }, []);
@@ -33,23 +30,26 @@ const DemoPage: React.FC = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-8 bg-white">
       <div className="w-full max-w-5xl flex flex-col items-center justify-center flex-1 gap-8">
-        <div className="flex flex-col items-center">
+        {/* <div className="flex flex-col items-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900">
             Your Biggest Fan
           </h1>
           <p className="text-xl text-gray-600 mt-2">•ᴗ•</p>
-        </div>
+        </div> */}
 
         <Card className="w-full max-w-md border border-gray-200 shadow-sm">
-          <CardHeader className="pb-4">
-            <h2 className="text-2xl font-semibold text-center text-gray-800">
-              🍩 Your Best Friend
-            </h2>
+          <CardHeader className="pt-6">
+            <div className="flex flex-col items-center">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+                Your Biggest Fan
+              </h1>
+              <p className="text-xl text-gray-600 mt-2">•ᴗ•</p>
+            </div>
           </CardHeader>
           <CardContent>
             <p className="text-center text-gray-600">
-              A personal AI assistant that acts as your biggest fan, providing
-              support and encouragement for all your endeavors.
+              🍩 Your personal over-the-top stan to convince ANYONE that you
+              deserve more than you do.
             </p>
           </CardContent>
           <CardFooter className="flex justify-center pt-2 pb-6">
@@ -65,8 +65,8 @@ const DemoPage: React.FC = () => {
         </Card>
 
         {/* Footer */}
-        <footer className="w-full text-center text-gray-500 text-sm mt-8">
-          <p>Built with ❤️ 2025</p>
+        <footer className="w-full text-center text-gray-500 text-sm mt-4">
+          <p>Built with ❤️ in the year of economic collapse</p>
         </footer>
       </div>
     </main>

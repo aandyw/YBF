@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         error: "API key not configured",
-        content: "API key not properly configured.",
+        content: "API key not configured",
       },
       { status: 500 }
     );

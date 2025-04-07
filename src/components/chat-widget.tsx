@@ -15,6 +15,8 @@ import { CoreAssistantMessage, CoreMessage, CoreUserMessage } from "ai";
 import { ChatService } from "@/lib/chat-service";
 import { ChatWidgetSDKConfig } from "@/lib/config";
 
+import ReactMarkdown from "react-markdown";
+
 const ChatWidget: React.FC<
   ChatWidgetSDKConfig & { chatService: ChatService }
 > = ({
@@ -25,7 +27,7 @@ const ChatWidget: React.FC<
   position = "bottom-right",
   openByDefault = false,
   initialMessages = [],
-  numHistoryMessages = 3, // TODO: use this to prevent limits in context and save money
+  numHistoryMessages = 3, // TODO: use this to reduce context limits and save money
   chatService,
 }) => {
   const [messages, setMessages] = useState<CoreMessage[]>(
@@ -54,7 +56,7 @@ const ChatWidget: React.FC<
     // Clear the input box to type new message
     setInput("");
 
-    // Get response
+    // Get streaming response
     const stream = (await chatService.chat(
       [...messages, newMessage],
       true
@@ -156,7 +158,7 @@ const ChatWidget: React.FC<
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
                   }}
                 >
-                  {msg.content}
+                  <ReactMarkdown>{msg.content}</ReactMarkdown>
                 </div>
               </div>
             ))}

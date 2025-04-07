@@ -6,19 +6,28 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate": "tsx scripts/generate.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.3.6",
+    "@huggingface/transformers": "^3.4.2",
+    "@llamaindex/huggingface": "^0.1.2",
+    "@llamaindex/openai": "^0.3.0",
+    "@llamaindex/readers": "^3.0.2",
     "@radix-ui/react-slot": "^1.1.2",
     "ai": "^4.2.10",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
+    "llamaindex": "^0.9.16",
     "lucide-react": "^0.485.0",
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
     "tailwind-merge": "^3.0.2",
+    "tsx": "^4.19.3",
     "tw-animate-css": "^1.2.5"
   },
   "devDependencies": {

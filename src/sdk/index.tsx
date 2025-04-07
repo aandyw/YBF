@@ -14,10 +14,14 @@ class ChatWidgetSDK {
   private container: HTMLElement | null = null;
   private static containerId = "ybf-widget";
 
-  constructor(config: ChatWidgetSDKConfig = {}) {
+  constructor(config: ChatWidgetSDKConfig) {
     // Create chat service
-    const systemPrompt = config.systemPrompt || "";
-    this.chatService = new ChatService(systemPrompt);
+    const userSystemPrompt = config.systemPrompt || "";
+    this.chatService = new ChatService(
+      config.subjectName,
+      userSystemPrompt,
+      "./app/data/"
+    );
 
     this.config = {
       title: "Chat", // Display Properties
