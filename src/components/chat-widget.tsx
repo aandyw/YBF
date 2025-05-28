@@ -9,7 +9,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { MessageSquare, X, Send } from "lucide-react";
+import { MessageSquare, X, Send, Sun, Moon } from "lucide-react";
 
 import { CoreAssistantMessage, CoreMessage, CoreUserMessage } from "ai";
 import { ChatService } from "@/lib/chat-service";
@@ -124,7 +124,27 @@ const ChatWidget: React.FC<
           }}
           className="flex flex-col px-0 py-0 mx-0 my-0 gap-2"
         >
-          <CardHeader className="flex justify-end items-center px-2 py-0 pt-2 my-0 mx-0 shrink-0">
+          <CardHeader className="flex justify-end items-center px-4 py-0 pt-3 my-0 mx-0 shrink-0 gap-0">
+            {isDark ? (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsDark(false)}
+                className="h-8 w-8 p-0 mr-2"
+              >
+                <Sun className="h-4 w-4"></Sun>
+              </Button>
+            ) : (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsDark(true)}
+                className="h-8 w-8 p-0 mr-2"
+              >
+                <Moon className="h-4 w-4"></Moon>
+              </Button>
+            )}
+
             <Button
               variant="ghost"
               size="sm"
@@ -135,7 +155,7 @@ const ChatWidget: React.FC<
             </Button>
           </CardHeader>
 
-          <CardContent className="flex-grow overflow-y-auto px-5 py-2 mx-0 my-0">
+          <CardContent className="flex-grow overflow-y-auto px-5 py-0 mx-0 my-0">
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -163,28 +183,10 @@ const ChatWidget: React.FC<
           </CardContent>
 
           <CardFooter className="px-5 py-0 pt-2 mb-4 mx-0">
-            {/* <Input
-              type="text"
-              placeholder={placeholderText}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleChatRequest();
-                }
-              }}
-              className="flex-1"
-            />
-            <Button onClick={handleChatRequest}>
-              <Send className="h-4 w-4" />
-            </Button> */}
-
             <Textarea
-              // ref={textareaRef}
               placeholder="Send a message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              // onKeyPress={handleKeyPress}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault(); // Prevent adding a new line
