@@ -24,7 +24,6 @@ class ChatWidgetSDK {
     );
 
     this.config = {
-      title: "Chat", // Display Properties
       placeholderText: "Ask me anything...",
       height: "520px",
       width: "380px",

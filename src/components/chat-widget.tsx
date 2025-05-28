@@ -8,7 +8,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { MessageSquare, X, Send } from "lucide-react";
 
 import { CoreAssistantMessage, CoreMessage, CoreUserMessage } from "ai";
@@ -36,6 +36,7 @@ const ChatWidget: React.FC<
 
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(openByDefault);
+  const [isDark, setIsDark] = useState(true);
 
   // Checks if the last message was not sent by the user.
   const prevMessageNotUser = (prevMessages: CoreMessage[]) => {
@@ -121,12 +122,9 @@ const ChatWidget: React.FC<
             height: height,
             fontFamily: "'Noto Serif JP', serif",
           }}
-          className="flex flex-col overflow-hidden"
+          className="flex flex-col px-0 py-0 mx-0 my-0 gap-2"
         >
-          <CardHeader className="flex justify-between items-center px-3 shrink-0">
-            <h2 className="text-lg font-medium text-gray-800 m-auto">
-              {title}
-            </h2>
+          <CardHeader className="flex justify-end items-center px-2 py-0 pt-2 my-0 mx-0 shrink-0">
             <Button
               variant="ghost"
               size="sm"
@@ -137,7 +135,7 @@ const ChatWidget: React.FC<
             </Button>
           </CardHeader>
 
-          <CardContent className="flex-grow overflow-y-auto mr-3 ml-3 py-4 px-4 border border-gray-200 rounded-sm">
+          <CardContent className="flex-grow overflow-y-auto px-5 py-2 mx-0 my-0">
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -164,8 +162,8 @@ const ChatWidget: React.FC<
             ))}
           </CardContent>
 
-          <CardFooter className="flex space-x-2 pr-3 pl-3">
-            <Input
+          <CardFooter className="px-5 py-0 pt-2 mb-4 mx-0">
+            {/* <Input
               type="text"
               placeholder={placeholderText}
               value={input}
@@ -179,7 +177,26 @@ const ChatWidget: React.FC<
             />
             <Button onClick={handleChatRequest}>
               <Send className="h-4 w-4" />
-            </Button>
+            </Button> */}
+
+            <Textarea
+              // ref={textareaRef}
+              placeholder="Send a message..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              // onKeyPress={handleKeyPress}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault(); // Prevent adding a new line
+                  handleChatRequest(); // Trigger the send message function
+                }
+              }}
+              className="min-h-[3rem] max-h-[15rem] resize-none rounded-xl transition-all duration-200 focus:ring-0 focus:ring-offset-0 shadow-sm px-5 py-4"
+            >
+              <Button onClick={handleChatRequest}>
+                <Send className="h-4 w-4" />
+              </Button>
+            </Textarea>
           </CardFooter>
         </Card>
       )}
