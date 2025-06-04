@@ -1,18 +1,14 @@
 import {
   CoreAssistantMessage,
   CoreMessage,
-  CoreSystemMessage,
-  CoreUserMessage,
+  CoreSystemMessage
 } from "ai";
 import { internalSystemPrompt } from "./prompts";
-
-import { VectorIndexRetriever } from "llamaindex";
 
 
 /** Chat service to handle the streaming chat */
 export class ChatService {
   private systemPrompt: CoreSystemMessage;
-  private retriever: VectorIndexRetriever | null = null;
 
   constructor(subjectName: string, userSystemPrompt: string) {
     const additionalContext = `\n\n###Additional Context:\n\n**Subject's Name:** ${subjectName}\n\n${userSystemPrompt}`;
