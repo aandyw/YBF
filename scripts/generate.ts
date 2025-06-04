@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { SimpleDirectoryReader } from "@llamaindex/readers/directory";
 import { storageContextFromDefaults, VectorStoreIndex } from "llamaindex";
-import { initSettings } from "@/lib/settings";
+import { initSettings } from "@/app/settings";
 
 async function generateDatasource() {
   console.log(`Generating storage context...`);

@@ -6,43 +6,19 @@ import {
 } from "ai";
 import { internalSystemPrompt } from "./prompts";
 
-import {
-  QueryEngineTool,
-  Settings,
-  VectorStoreIndex,
-  RetrieverQueryEngine,
-  BaseRetriever,
-  VectorIndexRetriever,
-} from "llamaindex";
-import { OpenAI, OpenAIAgent } from "@llamaindex/openai";
-import { HuggingFaceEmbedding } from "@llamaindex/huggingface";
-import { SimpleDirectoryReader } from "@llamaindex/readers/directory";
+import { VectorIndexRetriever } from "llamaindex";
 
+
+/** Chat service to handle the streaming chat */
 export class ChatService {
   private systemPrompt: CoreSystemMessage;
-  private dataDir: string;
-  private retriever: BaseRetriever | null = null;
+  private retriever: VectorIndexRetriever | null = null;
 
-  constructor(subjectName: string, userSystemPrompt: string, dataDir: string) {
+  constructor(subjectName: string, userSystemPrompt: string) {
     const additionalContext = `\n\n###Additional Context:\n\n**Subject's Name:** ${subjectName}\n\n${userSystemPrompt}`;
     const systemPrompt = internalSystemPrompt + additionalContext;
-
     this.systemPrompt = { role: "system", content: systemPrompt };
-    this.dataDir = dataDir;
-
-    // Setup llamaindex for RAG
-    // this.initKnowledge();
   }
-
-  // async initKnowledge() {
-  //   // Settings.embedModel = new HuggingFaceEmbedding({
-  //   //   modelType: "BAAI/bge-small-en-v1.5",
-  //   // });
-  //   // const reader = new SimpleDirectoryReader();
-  //   // const documents = await reader.loadData(this.dataDir);
-  //   // const index = await VectorStoreIndex.fromDocuments(documents);
-  //   // this.retriever = await index.asRetriever({ similarityTopK: 3 });
-  // }
 
   async chat(
     messages: CoreMessage[],
@@ -50,15 +26,6 @@ export class ChatService {
   ): Promise<ReadableStream<string> | CoreAssistantMessage> {
     try {
       const userQuery = messages[messages.length - 1].content as string;
-
-      let retrievedChunks = null;
-      if (this.retriever) {
-        retrievedChunks = await this.retriever.retrieve({
-          query: userQuery,
-        });
-      }
-
-      console.log(retrievedChunks);
 
       if (stream) {
         console.log(messages);

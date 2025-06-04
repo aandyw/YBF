@@ -3,9 +3,9 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import ChatWidget from "@/components/chat-widget";
-import { ChatService } from "@/lib/chat-service";
+import { ChatService } from "@/app/chat-service";
 import { CoreMessage } from "ai";
-import { ChatWidgetSDKConfig } from "@/lib/config";
+import { ChatWidgetSDKConfig } from "@/app/config";
 
 class ChatWidgetSDK {
   private chatService: ChatService;
@@ -17,14 +17,9 @@ class ChatWidgetSDK {
   constructor(config: ChatWidgetSDKConfig) {
     // Create chat service
     const userSystemPrompt = config.systemPrompt || "";
-    this.chatService = new ChatService(
-      config.subjectName,
-      userSystemPrompt,
-      "./app/data/"
-    );
+    this.chatService = new ChatService(config.subjectName, userSystemPrompt);
 
     this.config = {
-      placeholderText: "Ask me anything...",
       height: "520px",
       width: "380px",
       position: "bottom-right", // Behavioral Properties

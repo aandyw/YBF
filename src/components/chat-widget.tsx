@@ -12,16 +12,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { MessageSquare, X, Send, Sun, Moon } from "lucide-react";
 
 import { CoreAssistantMessage, CoreMessage, CoreUserMessage } from "ai";
-import { ChatService } from "@/lib/chat-service";
-import { ChatWidgetSDKConfig } from "@/lib/config";
+import { ChatService } from "@/app/chat-service";
+import { ChatWidgetSDKConfig } from "@/app/config";
 
 import ReactMarkdown from "react-markdown";
 
 const ChatWidget: React.FC<
   ChatWidgetSDKConfig & { chatService: ChatService }
 > = ({
-  title = "Chat",
-  placeholderText = "Ask me anything...",
   height = "520px",
   width = "380px",
   position = "bottom-right",
@@ -39,15 +37,15 @@ const ChatWidget: React.FC<
   const [isDark, setIsDark] = useState(true);
 
   // Checks if the last message was not sent by the user.
-  const prevMessageNotUser = (prevMessages: CoreMessage[]) => {
+  function prevMessageNotUser(prevMessages: CoreMessage[]): boolean {
     return (
       prevMessages.length > 0 &&
       prevMessages[prevMessages.length - 1].role !== "user"
     );
-  };
+  }
 
   // Handle a chat request sent by user
-  const handleChatRequest = async () => {
+  async function handleChatRequest(): Promise<void> {
     if (input.trim() === "") return; // Empty response
 
     // Add new message to message history
@@ -82,9 +80,9 @@ const ChatWidget: React.FC<
     } catch (error) {
       console.error("Error reading stream:", error);
     }
-  };
+  }
 
-  const getPositionStyles = () => {
+  function getPositionStyles(): React.CSSProperties {
     switch (position) {
       case "bottom-right":
         return { bottom: "1.25rem", right: "1.25rem" };
@@ -97,7 +95,7 @@ const ChatWidget: React.FC<
       default:
         return { bottom: "1.25rem", right: "1.25rem" };
     }
-  };
+  }
 
   return (
     <div
@@ -176,7 +174,9 @@ const ChatWidget: React.FC<
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
                   }}
                 >
-                  <ReactMarkdown>{msg.content}</ReactMarkdown>
+                  <ReactMarkdown>
+                    {typeof msg.content === "string" ? msg.content : ""}
+                  </ReactMarkdown>
                 </div>
               </div>
             ))}

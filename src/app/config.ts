@@ -1,10 +1,6 @@
 export interface ChatWidgetSDKConfig {
   /** Name of the subject the chatbot hypes up */
   subjectName: string;
-  /** Title displayed in the chatbot header */
-  title?: string;
-  /** Placeholder text for the input field */
-  placeholderText?: string;
   /** Height of the chat widget window */
   height?: string;
   /** Width of the chat widget window */

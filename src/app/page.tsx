@@ -29,13 +29,6 @@ const DemoPage: React.FC = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-8 bg-white">
       <div className="w-full max-w-5xl flex flex-col items-center justify-center flex-1 gap-8">
-        {/* <div className="flex flex-col items-center">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-            Your Biggest Fan
-          </h1>
-          <p className="text-xl text-gray-600 mt-2">•ᴗ•</p>
-        </div> */}
-
         <Card className="w-full max-w-md border border-gray-200 shadow-sm">
           <CardHeader className="pt-6">
             <div className="flex flex-col items-center">
