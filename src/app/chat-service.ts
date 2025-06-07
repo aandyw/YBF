@@ -16,10 +16,7 @@ export class ChatService {
     stream: boolean = false
   ): Promise<ReadableStream<string> | CoreAssistantMessage> {
     try {
-      const userQuery = messages[messages.length - 1].content as string;
-
       if (stream) {
-        console.log(messages);
         const response = await fetch("/api/chat", {
           method: "POST",
           body: JSON.stringify({

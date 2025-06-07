@@ -1,4 +1,4 @@
-import { OpenAI, OpenAIEmbedding } from "@llamaindex/openai";
+import { OpenAIEmbedding } from "@llamaindex/openai";
 import { Settings } from "llamaindex";
 
 export function initSettings() {

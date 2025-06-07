@@ -10,7 +10,7 @@ import {
   BaseRetriever,
 } from "llamaindex";
 
-import { Document, MetadataMode, NodeWithScore, Settings } from "llamaindex";
+import { MetadataMode, NodeWithScore } from "llamaindex";
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
