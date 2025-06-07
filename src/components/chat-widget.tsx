@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -51,6 +51,14 @@ const ChatWidget: React.FC<
   const [messages, setMessages] = useState<CoreMessage[]>(
     initialMessages?.map((msg) => ({ role: "assistant", content: msg })) || []
   );
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(openByDefault);
@@ -179,6 +187,7 @@ const ChatWidget: React.FC<
                 </div>
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </CardContent>
           <CardFooter className="px-5 py-0 pt-2 mb-4 mx-0">
             <Textarea
