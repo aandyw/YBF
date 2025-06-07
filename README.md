@@ -2,6 +2,8 @@
 
 Your personal over-the-top stan to convince ANYONE that you deserve more than you do.
 
+This application provides a customizable chatbot experience, acting as your ultimate hype-man. Simply index your resume content, and the chatbot will leverage it to sing your praises, perfect for job applications or self-promotion.
+
 ## Setup
 
 1.  **Clone the repository:**
@@ -21,7 +23,7 @@ Your personal over-the-top stan to convince ANYONE that you deserve more than yo
     ```
 
 3.  **Environment Variables:**
-    Create a `.env.local` file in the root of the project and add your OpenAI API key:
+    Create a `.env` file in the root of the project and add your OpenAI API key:
     ```
     OPENAI_API_KEY=your_openai_api_key_here
     ```
@@ -39,12 +41,6 @@ Your personal over-the-top stan to convince ANYONE that you deserve more than yo
     ```
 
     The application will be accessible at `http://localhost:3000`.
-
-## Features
-
-*   **Chatbot:** A personal "fan" chatbot that can hype up a subject based on provided content.
-*   **Customizable:** Configure subject name, initial messages, and more.
-*   **Dark Mode:** (If applicable - based on previous conversation, but removed now, so this line might be removed) The application supports a consistent light/dark theme.
 
 ## Contributing
 
