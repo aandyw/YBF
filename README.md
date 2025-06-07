@@ -44,5 +44,5 @@ This application provides a customizable chatbot experience, acting as your ulti
 
 ## Contributing
 
-This is just a toy project. Please don't contribute 😭.
+This is just a toy project. Please don't contribute 😭.  
 Your time is probably better spent watching paint dry or [alternatively](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
