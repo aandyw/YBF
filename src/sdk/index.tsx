@@ -2,10 +2,9 @@
 
 import React from "react";
 import { createRoot } from "react-dom/client";
-import ChatWidget from "@/components/chat-widget";
 import { ChatService } from "@/app/chat-service";
 import { CoreMessage } from "ai";
-import { ChatWidgetSDKConfig } from "@/app/config";
+import ChatWidget, { ChatWidgetSDKConfig } from "@/components/chat-widget";
 
 class ChatWidgetSDK {
   private chatService: ChatService;
@@ -19,13 +18,18 @@ class ChatWidgetSDK {
     const userSystemPrompt = config.systemPrompt || "";
     this.chatService = new ChatService(config.subjectName, userSystemPrompt);
 
-    this.config = {
+    const defaultConfig: ChatWidgetSDKConfig = {
+      subjectName: "",
       height: "520px",
       width: "380px",
-      position: "bottom-right", // Behavioral Properties
+      position: "bottom-right",
       openByDefault: false,
-      initialMessages: [], // Messaging Properties
+      initialMessages: [],
       numHistoryMessages: 3,
+    };
+
+    this.config = {
+      ...defaultConfig,
       ...config,
     };
   }

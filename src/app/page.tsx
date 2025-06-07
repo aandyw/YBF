@@ -17,7 +17,7 @@ const DemoPage: React.FC = () => {
   React.useEffect(() => {
     const chatWidget = new ChatWidgetSDK({
       subjectName: "George",
-      initialMessages: ["Hey there. I'm here to glaze."],
+      initialMessages: [],
       systemPrompt: "",
       height: "40rem",
       width: "29.5rem",

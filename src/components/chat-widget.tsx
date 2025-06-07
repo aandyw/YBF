@@ -11,25 +11,45 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { MessageSquare, X, Send, Sun, Moon } from "lucide-react";
 
-import { CoreAssistantMessage, CoreMessage, CoreUserMessage } from "ai";
+import { CoreMessage, CoreUserMessage } from "ai";
 import { ChatService } from "@/app/chat-service";
-import { ChatWidgetSDKConfig } from "@/app/config";
 
 import ReactMarkdown from "react-markdown";
 
+export interface ChatWidgetSDKConfig {
+  /** Name of the subject the chatbot hypes up */
+  subjectName: string;
+  /** Height of the chat widget window */
+  height?: string;
+  /** Width of the chat widget window */
+  width?: string;
+  /** Positioning for the chat widget */
+  position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
+  /** Whether the widget starts opened */
+  openByDefault?: boolean;
+  /** Initial messages to populate the chat */
+  initialMessages?: string[];
+  /** Chatbot system prompt */
+  systemPrompt?: string;
+  /** Number of history messages to use */
+  numHistoryMessages?: number;
+}
+
 const ChatWidget: React.FC<
   ChatWidgetSDKConfig & { chatService: ChatService }
-> = ({
-  height = "520px",
-  width = "380px",
-  position = "bottom-right",
-  openByDefault = false,
-  initialMessages = [],
-  numHistoryMessages = 3, // TODO: use this to reduce context limits and save money
-  chatService,
-}) => {
+> = (args) => {
+  const {
+    height,
+    width,
+    position,
+    openByDefault,
+    initialMessages,
+    numHistoryMessages,
+    chatService,
+  } = args;
+
   const [messages, setMessages] = useState<CoreMessage[]>(
-    initialMessages.map((msg) => ({ role: "assistant", content: msg }))
+    initialMessages?.map((msg) => ({ role: "assistant", content: msg })) || []
   );
 
   const [input, setInput] = useState("");

@@ -1,10 +1,5 @@
-import {
-  CoreAssistantMessage,
-  CoreMessage,
-  CoreSystemMessage
-} from "ai";
+import { CoreAssistantMessage, CoreMessage, CoreSystemMessage } from "ai";
 import { internalSystemPrompt } from "./prompts";
-
 
 /** Chat service to handle the streaming chat */
 export class ChatService {

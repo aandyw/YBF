@@ -100,7 +100,7 @@ export async function POST(req: Request) {
   console.log("NEW messages:", messages);
 
   const result = streamText({
-    model: openai("gpt-4o-2024-08-06"),
+    model: openai("gpt-4o"),
     messages,
   });
 
