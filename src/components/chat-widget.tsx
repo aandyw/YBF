@@ -9,7 +9,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { MessageSquare, X, Send, Sun, Moon } from "lucide-react";
+import { MessageSquare, X, Send } from "lucide-react";
 
 import { CoreMessage, CoreUserMessage } from "ai";
 import { ChatService } from "@/app/chat-service";
@@ -54,7 +54,6 @@ const ChatWidget: React.FC<
 
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(openByDefault);
-  const [isDark, setIsDark] = useState(true);
 
   // Checks if the last message was not sent by the user.
   function prevMessageNotUser(prevMessages: CoreMessage[]): boolean {
@@ -139,40 +138,20 @@ const ChatWidget: React.FC<
             width: width,
             height: height,
             fontFamily: "'Noto Serif JP', serif",
+            transition: "background 0.3s, border-color 0.3s, box-shadow 0.3s",
           }}
-          className="flex flex-col px-0 py-0 mx-0 my-0 gap-2"
+          className={`flex flex-col px-0 py-0 mx-0 my-0 gap-2 border bg-white border-gray-200 shadow-md hover:shadow-sm transition-shadow`}
         >
           <CardHeader className="flex justify-end items-center px-4 py-0 pt-3 my-0 mx-0 shrink-0 gap-0">
-            {isDark ? (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsDark(false)}
-                className="h-8 w-8 p-0 mr-2"
-              >
-                <Sun className="h-4 w-4"></Sun>
-              </Button>
-            ) : (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsDark(true)}
-                className="h-8 w-8 p-0 mr-2"
-              >
-                <Moon className="h-4 w-4"></Moon>
-              </Button>
-            )}
-
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setOpen(false)}
-              className="h-8 w-8 p-0"
+              className="h-8 w-8 p-0 text-gray-700 hover:bg-gray-100"
             >
-              <X className="h-4 w-4"></X>
+              <X className="h-4 w-4" />
             </Button>
           </CardHeader>
-
           <CardContent className="flex-grow overflow-y-auto px-5 py-0 mx-0 my-0">
             {messages.map((msg, idx) => (
               <div
@@ -186,12 +165,12 @@ const ChatWidget: React.FC<
                 <div
                   className={`max-w-[85%] break-words ${
                     msg.role === "user"
-                      ? "bg-amber-50 text-gray-800 border border-amber-200 rounded-br-none"
-                      : "bg-gray-100 text-gray-800 border border-gray-300 rounded-bl-none"
-                  } px-4 py-3 rounded-lg`}
+                      ? "bg-gray-100 text-gray-900 border border-gray-200 rounded-br-none shadow-sm hover:bg-gray-200 transition-colors"
+                      : "bg-gray-50 text-gray-900 border border-gray-200 rounded-bl-none shadow-sm hover:bg-gray-100 transition-colors"
+                  }
+                  px-4 py-3 rounded-lg`}
                   style={{
                     fontSize: msg.role === "user" ? "0.95rem" : "1rem",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
                   }}
                 >
                   <ReactMarkdown>
@@ -201,7 +180,6 @@ const ChatWidget: React.FC<
               </div>
             ))}
           </CardContent>
-
           <CardFooter className="px-5 py-0 pt-2 mb-4 mx-0">
             <Textarea
               placeholder="Send a message..."
@@ -213,9 +191,12 @@ const ChatWidget: React.FC<
                   handleChatRequest(); // Trigger the send message function
                 }
               }}
-              className="min-h-[3rem] max-h-[15rem] resize-none rounded-xl transition-all duration-200 focus:ring-0 focus:ring-offset-0 shadow-sm px-5 py-4"
+              className="min-h-[3rem] max-h-[15rem] resize-none rounded-xl transition-all duration-200 focus:ring-0 focus:ring-offset-0 shadow-sm px-5 py-4 bg-gray-50 text-gray-900 border-gray-200 placeholder:text-gray-400 focus:border-gray-100"
             >
-              <Button onClick={handleChatRequest}>
+              <Button
+                onClick={handleChatRequest}
+                className="bg-gray-100 hover:bg-gray-100 text-white transition-colors"
+              >
                 <Send className="h-4 w-4" />
               </Button>
             </Textarea>

@@ -77,8 +77,6 @@ export async function POST(req: Request) {
   // TODO: have a non-streaming option?
   const { messages, stream } = await req.json();
 
-  console.log("Received messages:", messages);
-
   const lastMsg = messages.length - 1
   const userQuery = messages[lastMsg].content;
   const chunks = await knowledge.retrieve(userQuery);
@@ -96,8 +94,6 @@ export async function POST(req: Request) {
   if (chunks) {
     messages[lastMsg].content = `User Query: ${messages[lastMsg].content}\nContext: \n${chunks.join("\n\n")}`;
   }
-
-  console.log("NEW messages:", messages);
 
   const result = streamText({
     model: openai("gpt-4o"),
