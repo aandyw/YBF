@@ -9,7 +9,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import ChatWidgetSDK from "../../../src/sdk";
+import ChatWidgetSDK from "ybf";
 
 const DemoPage: React.FC = () => {
   const githubRepoUrl = "https://github.com/aandyw/YBF";
