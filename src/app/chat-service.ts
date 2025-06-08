@@ -6,7 +6,7 @@ export class ChatService {
   private systemPrompt: CoreSystemMessage;
 
   constructor(subjectName: string, userSystemPrompt: string) {
-    const additionalContext = `\n\n###Additional Context:\n\n**Subject's Name:** ${subjectName}\n\n${userSystemPrompt}`;
+    const additionalContext = `\n\n#Additional Context:\n\n**Subject's Name:** ${subjectName}\n\n${userSystemPrompt}`;
     const systemPrompt = internalSystemPrompt + additionalContext;
     this.systemPrompt = { role: "system", content: systemPrompt };
   }

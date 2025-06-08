@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Github, Moon, Sun } from "lucide-react";
+import { Github } from "lucide-react";
 import {
   Card,
   CardHeader,
