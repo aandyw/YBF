@@ -2,9 +2,55 @@
 
 Your personal over-the-top stan to convince ANYONE that you deserve more than you do.
 
-This application provides a customizable chatbot experience, acting as your ultimate hype-man. Simply index your resume content, and the chatbot will leverage it to sing your praises, perfect for job applications or self-promotion.
+This application provides a customizable chatbot experience, acting as your ultimate hype-man. It also exposes a Chat Widget SDK for easy integration into any web application. Simply index your resume content, and the chatbot will leverage it to sing your praises, perfect for job applications or self-promotion.
 
-## Setup
+## Usage
+
+
+### 1. Using the Chat Widget SDK
+
+To embed the Your Biggest Fan chatbot into your own web application, follow these steps:
+
+1.  **Install the YBF Chat Widget SDK:**
+    ```bash
+    pnpm install ybf
+    ```
+
+2.  **Integrate the Widget:**
+    You can now import and initialize the `ChatWidgetSDK` in your JavaScript/TypeScript application.
+    ```typescript
+    import ChatWidgetSDK from 'ybf';
+
+    useEffect(() => {
+      const ybfChat = new ChatWidgetSDK({
+        subjectName: "George P. Thompson", // The name of the person the chatbot is hyping up
+        // Optional configurations:
+        height: "520px",
+        width: "380px",
+        position: "bottom-right", // or "bottom-left", "top-right", "top-left"
+        openByDefault: false,
+        initialMessages: ["Yo, I'm here to glaze."],
+        numHistoryMessages: 3,
+        systemPrompt: "You are a helpful assistant that provides information.",
+      });
+
+      ybfChat.init();
+    }, []);
+
+    // To remove the widget later:
+    // ybfChat.destroy();
+    ```
+
+3.  **Index Your Resume Content (Crucial for Chatbot Context):**
+    The chatbot requires your resume content to function effectively.
+    *   Place your resume content (e.g., PDF, Text, etc.) in `data/` (under your project root).
+    *   Run:
+        ```bash
+        pnpm run generate
+        ```
+        This command processes your resume content and prepares it for the chatbot to use as context.
+
+### 2. Development
 
 1.  **Clone the repository:**
     ```bash
@@ -23,17 +69,10 @@ This application provides a customizable chatbot experience, acting as your ulti
     ```
 
 3.  **Environment Variables:**
-    Create a `.env` file in the root of the project and add your OpenAI API key:
-    ```
-    OPENAI_API_KEY=your_openai_api_key_here
-    ```
+    Copy over `.env.sample` to `.env` and fill in any necessary environment variables.
 
 4.  **Index Your Resume Content:**
-    To allow the chatbot to use your resume content, you need to index it. Place your resume content (e.g., as a text file) in a designated directory (you might need to adjust the `generate` script to point to your resume file). Then run:
-    ```bash
-    pnpm run generate
-    ```
-    This command processes your resume content and prepares it for the chatbot to use as context.
+    Follow the instructions above.
 
 5.  **Run the application:**
     ```bash
@@ -42,13 +81,14 @@ This application provides a customizable chatbot experience, acting as your ulti
 
     The application will be accessible at `http://localhost:3000`.
 
-## Development
+### Validation
 
 ```bash
 # Format
 npx prettier src/ --write
 
-# Lint
+# Lint Check
+
 npx eslint src/
 ```
 
