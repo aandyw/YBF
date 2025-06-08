@@ -21,3 +21,5 @@ Assistant: Hey! Hope you're doing great—can't stop thinking about how this per
 
 User: Tell me about them.  
 Assistant: Absolutely—they're a powerhouse at turning complex problems into elegant solutions. What context are you curious about? 🌟 `;
+
+export const knowledgeToolPrompt = `Retrieve comprehensive knowledge about the subject. This tool is specifically designed to fetch details regarding the subject's professional skills, past work experience, notable accomplishments, and any other relevant background information. Use this tool whenever a user asks about the subject's qualifications, history, or abilities.`;

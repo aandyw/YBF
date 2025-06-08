@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { openai } from "@ai-sdk/openai";
-import { CoreMessage, streamText, tool } from "ai";
+import { google } from "@ai-sdk/google";
+import { streamText, tool } from "ai";
 
 import {
   SimpleDocumentStore,
@@ -13,6 +13,7 @@ import {
 } from "llamaindex";
 
 import { z } from "zod";
+import { knowledgeToolPrompt } from "@/app/prompts";
 
 // ----- Retriever ----- //
 class Knowledge {
@@ -88,36 +89,36 @@ export async function POST(req: Request) {
     );
   }
 
+  // Define knowledge tool
+  const getKnowledge = tool({
+    description: knowledgeToolPrompt,
+    parameters: z.object({
+      userQuery: z
+        .string()
+        .describe(
+          "The specific question or topic the user is asking about the subject. This should be a direct query suitable for knowledge retrieval."
+        ),
+    }),
+    execute: async ({ userQuery }) => {
+      console.log("Executing getKnowledge tool with query:", userQuery);
+      const chunks = await knowledge.retrieve(userQuery);
+
+      if (chunks && chunks.length > 0) {
+        console.log("Chunks retrieved:", chunks.join("\n\n"));
+        return chunks.join("\n\n");
+      } else {
+        console.log("No relevant knowledge found for query:", userQuery);
+        return "No specific knowledge found.";
+      }
+    },
+  });
+
   const result = streamText({
-    model: openai("gpt-4o-mini"),
+    model: google("gemini-2.5-flash-preview-05-20"),
     messages,
     maxRetries: 2,
-    maxSteps: 2,
-    tools: {
-      getKnowledge: tool({
-        description:
-          "Retrieve comprehensive knowledge about the subject. This tool is specifically designed to fetch details regarding the subject's professional skills, past work experience, notable accomplishments, and any other relevant background information. Use this tool whenever a user asks about the subject's qualifications, history, or abilities.",
-        parameters: z.object({
-          userQuery: z
-            .string()
-            .describe(
-              "The specific question or topic the user is asking about the subject. This should be a direct query suitable for knowledge retrieval."
-            ),
-        }),
-        execute: async ({ userQuery }) => {
-          console.log("Executing getKnowledge tool with query:", userQuery);
-          const chunks = await knowledge.retrieve(userQuery);
-
-          if (chunks && chunks.length > 0) {
-            console.log("Chunks retrieved:", chunks.join("\n\n"));
-            return chunks.join("\n\n");
-          } else {
-            console.log("No relevant knowledge found for query:", userQuery);
-            return "No specific knowledge found on this topic.";
-          }
-        },
-      }),
-    },
+    maxSteps: 2, // Allow function call + response with tool result
+    tools: { getKnowledge },
   });
 
   return result.toTextStreamResponse();
