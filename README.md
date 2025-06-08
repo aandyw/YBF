@@ -7,7 +7,7 @@ This application provides a customizable chatbot experience, acting as your ulti
 ## Usage
 
 
-### 1. Using the Chat Widget SDK
+### Using the Chat Widget SDK
 
 To embed the Your Biggest Fan chatbot into your own web application, follow these steps:
 
@@ -16,7 +16,11 @@ To embed the Your Biggest Fan chatbot into your own web application, follow thes
     pnpm install ybf
     ```
 
-2.  **Integrate the Widget:**
+2.  **Environment Variables:**
+    Copy over `.env.sample` to `.env` and fill in any necessary environment variables.
+    *  OpenAI is used as the embedding model and Gemini 2.5 Flash is the chat model.
+
+3.  **Integrate the Widget:**
     You can now import and initialize the `ChatWidgetSDK` in your JavaScript/TypeScript application.
     ```typescript
     import ChatWidgetSDK from 'ybf';
@@ -41,7 +45,7 @@ To embed the Your Biggest Fan chatbot into your own web application, follow thes
     // ybfChat.destroy();
     ```
 
-3.  **Index Your Resume Content (Crucial for Chatbot Context):**
+4.  **Index Your Resume Content (Crucial for Chatbot Context):**
     The chatbot requires your resume content to function effectively.
     *   Place your resume content (e.g., PDF, Text, etc.) in `data/` (under your project root).
     *   Run:
@@ -50,7 +54,7 @@ To embed the Your Biggest Fan chatbot into your own web application, follow thes
         ```
         This command processes your resume content and prepares it for the chatbot to use as context.
 
-### 2. Development
+### Development
 
 1.  **Clone the repository:**
     ```bash
@@ -59,10 +63,8 @@ To embed the Your Biggest Fan chatbot into your own web application, follow thes
     ```
 
 2.  **Install dependencies:**
-    This project uses pnpm. If you don't have pnpm installed, you can install it globally:
-    ```bash
-    npm install -g pnpm
-    ```
+    Install [pnpm](https://pnpm.io/installation) if it's not already installed.
+    
     Then, install the project dependencies:
     ```bash
     pnpm install
@@ -71,8 +73,7 @@ To embed the Your Biggest Fan chatbot into your own web application, follow thes
 3.  **Environment Variables:**
     Copy over `.env.sample` to `.env` and fill in any necessary environment variables.
 
-4.  **Index Your Resume Content:**
-    Follow the instructions above.
+4.  **Index Your Resume Content**
 
 5.  **Run the application:**
     ```bash
