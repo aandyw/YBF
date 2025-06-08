@@ -3,7 +3,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { ChatService } from "@/app/chat-service";
-import { CoreMessage } from "ai";
 import ChatWidget, { ChatWidgetSDKConfig } from "@/components/chat-widget";
 
 class ChatWidgetSDK {

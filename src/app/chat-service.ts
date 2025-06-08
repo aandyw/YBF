@@ -13,7 +13,7 @@ export class ChatService {
 
   async chat(
     messages: CoreMessage[],
-    stream: boolean = false
+    stream: boolean = false,
   ): Promise<ReadableStream<string> | CoreAssistantMessage> {
     try {
       if (stream) {

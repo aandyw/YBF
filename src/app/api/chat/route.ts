@@ -29,12 +29,12 @@ class Knowledge {
     });
 
     const numberOfDocs = Object.keys(
-      (storageContext.docStore as SimpleDocumentStore).toDict()
+      (storageContext.docStore as SimpleDocumentStore).toDict(),
     ).length;
 
     if (numberOfDocs === 0) {
       throw new Error(
-        "Index not found. Please run `pnpm run generate` to generate the embeddings of the documents"
+        "Index not found. Please run `pnpm run generate` to generate the embeddings of the documents",
       );
     }
 
@@ -57,11 +57,9 @@ class Knowledge {
     const sourceNodes = await Knowledge.retriever.retrieve({ query });
 
     if (sourceNodes) {
-      const chunks: Array<string> = sourceNodes.map(
-        (source: NodeWithScore, index: number) => {
-          return source.node.getContent(MetadataMode.NONE);
-        }
-      );
+      const chunks: Array<string> = sourceNodes.map((source: NodeWithScore) => {
+        return source.node.getContent(MetadataMode.NONE);
+      });
       return chunks;
     } else {
       console.log("No source nodes found for query: ", query);
@@ -77,7 +75,7 @@ const knowledge: Knowledge = new Knowledge();
 
 export async function POST(req: Request) {
   // TODO: have a non-streaming option?
-  const { messages, stream } = await req.json();
+  const { messages } = await req.json();
 
   if (!process.env.OPENAI_API_KEY) {
     return NextResponse.json(
@@ -85,7 +83,7 @@ export async function POST(req: Request) {
         error: "API key not configured",
         content: "API key not configured",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -96,7 +94,7 @@ export async function POST(req: Request) {
       userQuery: z
         .string()
         .describe(
-          "The specific question or topic the user is asking about the subject. This should be a direct query suitable for knowledge retrieval."
+          "The specific question or topic the user is asking about the subject. This should be a direct query suitable for knowledge retrieval.",
         ),
     }),
     execute: async ({ userQuery }) => {

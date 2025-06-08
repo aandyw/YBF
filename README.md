@@ -42,7 +42,17 @@ This application provides a customizable chatbot experience, acting as your ulti
 
     The application will be accessible at `http://localhost:3000`.
 
+## Development
+
+```bash
+# Format
+npx prettier src/ --write
+
+# Lint
+npx eslint src/
+```
+
 ## Contributing
 
-This is just a toy project. Please don't contribute 😭.  
+Why would you contribute? Please don't contribute 😭.  
 Your time is probably better spent watching paint dry or [alternatively](https://www.youtube.com/watch?v=dQw4w9WgXcQ).

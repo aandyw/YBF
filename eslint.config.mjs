@@ -11,6 +11,14 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    files: ["src/**/*.{js,jsx,ts,tsx}"],
+    // You can add specific rules for src/ here if needed,
+    // for example:
+    rules: {
+      "@typescript-eslint/no-explicit-any": "error",
+    },
+  },
 ];
 
 export default eslintConfig;

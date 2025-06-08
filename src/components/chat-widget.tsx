@@ -44,7 +44,6 @@ const ChatWidget: React.FC<
     position,
     openByDefault,
     initialMessages,
-    numHistoryMessages,
     chatService,
   } = args;
 
