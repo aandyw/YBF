@@ -1,14 +1,13 @@
 "use client";
 
-import React from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, Root } from "react-dom/client";
 import { ChatService } from "@/app/chat-service";
 import ChatWidget, { ChatWidgetSDKConfig } from "@/components/chat-widget";
 
 class ChatWidgetSDK {
   private chatService: ChatService;
   private config: ChatWidgetSDKConfig;
-  private root: any = null;
+  private root: Root | null = null;
   private container: HTMLElement | null = null;
   private static containerId = "ybf-widget";
 

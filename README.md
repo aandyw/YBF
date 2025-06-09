@@ -1,19 +1,25 @@
-# Your Biggest Fan
+# Your Biggest Fan (v0.1.29)
 
 Your personal over-the-top stan to convince ANYONE that you deserve more than you do.
 
 This application provides a customizable chatbot experience, acting as your ultimate hype-man. It also exposes a Chat Widget SDK for easy integration into any web application. Simply index your resume content, and the chatbot will leverage it to sing your praises, perfect for job applications or self-promotion.
 
+## Todos
+
+- [x] Local MVP Demo works!
+- [ ] Make it installable as an npm package
+
 ## Usage
 
 
 ### Using the Chat Widget SDK
+*Experimental -- Not working yet...*
 
 To embed the Your Biggest Fan chatbot into your own web application, follow these steps:
 
 1.  **Install the YBF Chat Widget SDK:**
     ```bash
-    pnpm install ybf
+    pnpm install @aandyw/ybf
     ```
 
 2.  **Environment Variables:**
@@ -82,6 +88,19 @@ To embed the Your Biggest Fan chatbot into your own web application, follow thes
 
     The application will be accessible at `http://localhost:3000`.
 
+### Build
+To build the `dist/` package:
+
+```bash
+pnpm run build
+```
+
+Then, to publish:
+
+```bash
+pnpm run publish
+```
+
 ### Validation
 
 ```bash
@@ -89,7 +108,6 @@ To embed the Your Biggest Fan chatbot into your own web application, follow thes
 npx prettier src/ --write
 
 # Lint Check
-
 npx eslint src/
 ```
 

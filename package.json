@@ -1,13 +1,21 @@
 {
   "name": "@aandyw/ybf",
-  "version": "0.1.0",
+  "version": "0.1.29",
   "private": false,
+  "type": "module",
+  "main": "dist/src/sdk/index.js",
+  "types": "dist/src/sdk/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "tsc -p tsconfig.json && tsc-alias && cp src/app/globals.css dist/src/app/globals.css",
     "start": "next start",
-    "lint": "next lint",
-    "generate": "tsx scripts/generate.ts"
+    "lint": "next lint"
+  },
+  "bin": {
+    "ybf-generate": "dist/scripts/generate.js"
   },
   "dependencies": {
     "@ai-sdk/google": "^1.2.19",
@@ -41,6 +49,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
     "tailwindcss": "^4",
+    "tsc-alias": "^1.8.16",
     "typescript": "^5"
   }
 }

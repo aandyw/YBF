@@ -5,30 +5,30 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
+    "noEmit": false,
+    "declaration": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
+    "jsx": "react-jsx",
     "plugins": [
       {
         "name": "next"
       }
     ],
+    "baseUrl": ".",
+    // We need this along with tsc-alias to convert @aliases to relative imports in dist/
     "paths": {
       "@/*": ["./src/*"]
     },
-    "outDir": "dist"
+    "outDir": "dist",
+    "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/**/*"
-  ],
-  "exclude": ["node_modules", "dist"]
+  "tsc-alias": {
+    "resolveFullPaths": true
+  },
+  "include": ["scripts/generate.ts", "src/**/*", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", "dist", "data"]
 }
