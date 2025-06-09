@@ -4,6 +4,10 @@ Your personal over-the-top stan to convince ANYONE that you deserve more than yo
 
 This application provides a customizable chatbot experience, acting as your ultimate hype-man. It also exposes a Chat Widget SDK for easy integration into any web application. Simply index your resume content, and the chatbot will leverage it to sing your praises, perfect for job applications or self-promotion.
 
+
+https://github.com/user-attachments/assets/3cd8d913-f37f-4a1b-91cb-f9787b4a33b5
+
+
 ## Todos
 
 - [x] Local MVP Demo works!
